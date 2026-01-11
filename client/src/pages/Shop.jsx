@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ProductCard from '../components/home/ProductCard';
 // 👇 FIXED: Added ArrowRight to imports
 import { Filter, ChevronDown, Check, X, SlidersHorizontal, ArrowRight } from 'lucide-react';
+import { FadeIn } from '../components/common/Motion';
 
 const Shop = () => {
     const location = useLocation();
@@ -345,11 +346,13 @@ const Shop = () => {
                             ))}
                         </div>
                     ) : displayedProducts.length > 0 ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
-                            {displayedProducts.map(product => (
-                                <ProductCard key={product._id} product={product} />
-                            ))}
-                        </div>
+                        <FadeIn>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
+                                {displayedProducts.map(product => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))}
+                            </div>
+                        </FadeIn>
                     ) : (
                         <div className="flex flex-col items-center justify-center py-20 bg-white rounded-xl border border-gray-200 text-center">
                             <div className="bg-gray-50 p-6 rounded-full mb-4">

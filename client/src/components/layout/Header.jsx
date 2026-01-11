@@ -30,6 +30,7 @@ const Header = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
+                // Using the environment variable as requested
                 const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
                 setProducts(res.data);
             } catch (err) {
@@ -83,81 +84,81 @@ const Header = () => {
 
     return (
         <>
-            {/* 1. Top Bar */}
-            <div className="bg-gray-900 text-xs text-gray-300 border-b border-gray-800 hidden md:block">
-                <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+            {/* 1. Top Bar - Dark & Sleek */}
+            <div className="bg-gray-950 text-xs text-gray-400 border-b border-gray-800 hidden md:block">
+                <div className="container mx-auto px-4 py-2.5 flex justify-between items-center">
                     <div className="flex items-center space-x-6">
-                        <span className="flex items-center hover:text-white transition cursor-pointer">
-                            <MapPin size={14} className="mr-1 text-blue-400" /> 123 Tech Avenue, Colombo 07, Sri Lanka
+                        <span className="flex items-center hover:text-white transition-colors cursor-pointer duration-300">
+                            <MapPin size={14} className="mr-1.5 text-blue-500" /> 123 Tech Avenue, Colombo 07
                         </span>
-                        <span className="flex items-center hover:text-white transition cursor-pointer">
-                            <Phone size={14} className="mr-1 text-blue-400" /> +94 77 123 4567
+                        <span className="flex items-center hover:text-white transition-colors cursor-pointer duration-300">
+                            <Phone size={14} className="mr-1.5 text-blue-500" /> +94 77 123 4567
                         </span>
                     </div>
 
                     <div className="flex items-center">
-                        <div className="flex items-center space-x-4 mr-6 border-r border-gray-700 pr-6">
-                            <a href="#" className="hover:text-blue-500 transition"><Facebook size={14} /></a>
-                            <a href="#" className="hover:text-blue-400 transition"><Twitter size={14} /></a>
-                            <a href="#" className="hover:text-pink-500 transition"><Instagram size={14} /></a>
-                            <a href="#" className="hover:text-red-500 transition"><Youtube size={14} /></a>
+                        <div className="flex items-center space-x-4 mr-6 border-r border-gray-800 pr-6">
+                            <a href="#" className="hover:text-blue-500 transition-colors transform hover:scale-110"><Facebook size={14} /></a>
+                            <a href="#" className="hover:text-sky-400 transition-colors transform hover:scale-110"><Twitter size={14} /></a>
+                            <a href="#" className="hover:text-pink-500 transition-colors transform hover:scale-110"><Instagram size={14} /></a>
+                            <a href="#" className="hover:text-red-500 transition-colors transform hover:scale-110"><Youtube size={14} /></a>
                         </div>
 
                         {/* Top Bar User Menu */}
                         {user ? (
-                            <div className="flex items-center space-x-4">
-                                <Link to="/profile" className="font-medium text-white hover:text-blue-400 flex items-center gap-2">
-                                    <User size={14} /> Hi, {user.name}
+                            <div className="flex items-center space-x-5">
+                                <Link to="/profile" className="font-medium text-gray-300 hover:text-white flex items-center gap-2 transition-colors">
+                                    <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px] font-bold">
+                                        {user.name.charAt(0)}
+                                    </div>
+                                    Hi, {user.name}
                                 </Link>
                                 {user.isAdmin && (
-                                    <Link to="/admin" className="text-yellow-400 hover:text-yellow-300 font-bold">Admin Panel</Link>
+                                    <Link to="/admin" className="text-yellow-500 hover:text-yellow-400 font-bold tracking-wide">Admin</Link>
                                 )}
-                                <button onClick={logout} className="hover:text-red-400 transition">Logout</button>
+                                <button onClick={logout} className="hover:text-red-400 transition-colors">Logout</button>
                             </div>
                         ) : (
-                            <Link to="/auth/login" className="hover:text-white transition font-medium">Login / Register</Link>
+                            <Link to="/auth/login" className="hover:text-white transition-colors font-medium flex items-center gap-2">
+                                <User size={14} /> Login / Register
+                            </Link>
                         )}
                     </div>
                 </div>
             </div>
 
-            {/* Sticky Wrapper */}
-            <div className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''}`}>
+            {/* Sticky Wrapper with Glass Effect */}
+            <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg py-2' : 'bg-white py-4'}`}>
 
                 {/* 2. Main Header */}
-                <div className="container mx-auto px-4 py-4 md:py-6">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-8">
 
                         {/* Logo & Mobile Toggles */}
                         <div className="flex items-center justify-between">
-                            <Link to="/" className="flex items-center gap-2 group">
-                                <div className="p-1 rounded-full border border-gray-100 shadow-sm overflow-hidden">
-                                    <img src="/logo.svg" alt="Tensor Technology" className="h-12 w-12 rounded-full object-cover border border-gray-100" />
-                                </div>
-                                <span className="text-2xl font-bold tracking-tight text-gray-900">
-                                    Tensor <span className="text-blue-600">Technology</span>
-                                </span>
+                            <Link to="/" className="block">
+                                <img src="/logo.svg" alt="Tensor" className="h-14 md:h-20 w-auto object-contain transition-all duration-300 hover:scale-110 hover:brightness-110" />
                             </Link>
 
                             <div className="flex items-center space-x-4 md:hidden">
-                                <Link to="/cart" className="relative text-gray-700">
+                                <Link to="/cart" className="relative text-gray-700 p-2">
                                     <ShoppingCart size={24} />
                                     {cartCount > 0 && (
-                                        <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+                                        <span className="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
                                             {cartCount}
                                         </span>
                                     )}
                                 </Link>
                                 <button
                                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                    className="text-gray-700 hover:text-blue-600 transition"
+                                    className="text-gray-700 hover:text-blue-600 transition p-2"
                                 >
                                     {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Search Bar */}
+                        {/* Search Bar - Enhanced */}
                         <div className="flex-grow max-w-2xl relative z-50" ref={searchRef}>
                             <form onSubmit={handleSearchSubmit} className="relative group">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -165,20 +166,20 @@ const Header = () => {
                                 </div>
                                 <input
                                     type="text"
-                                    placeholder="Search products..."
+                                    placeholder="Search for products, brands..."
                                     value={searchTerm}
                                     onChange={handleSearchInput}
                                     onFocus={() => searchTerm.length > 1 && setShowSuggestions(true)}
-                                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block pl-12 pr-14 py-3.5 transition-all shadow-sm group-hover:shadow-md"
+                                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white block pl-12 pr-14 py-2.5 md:py-3 transition-all shadow-sm hover:shadow-md hover:border-blue-300"
                                 />
-                                <button type="submit" className="absolute right-2 top-1.5 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors shadow-sm">
-                                    <Search size={18} />
+                                <button type="submit" className="absolute right-1.5 top-1.5 bg-blue-600 text-white p-1.5 md:p-2 rounded-full hover:bg-blue-700 transition-all hover:scale-105 shadow-md shadow-blue-200">
+                                    <Search size={16} />
                                 </button>
                             </form>
 
-                            {/* Suggestions */}
+                            {/* Suggestions Dropdown */}
                             {showSuggestions && suggestions.length > 0 && (
-                                <div className="absolute top-full left-0 right-0 bg-white border border-gray-100 rounded-xl shadow-2xl mt-2 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="absolute top-full left-0 right-0 bg-white border border-gray-100 rounded-2xl shadow-2xl mt-3 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-[60]">
                                     <ul>
                                         {suggestions.map(product => (
                                             <li key={product._id}>
@@ -187,11 +188,11 @@ const Header = () => {
                                                     onClick={() => setShowSuggestions(false)}
                                                     className="flex items-center px-4 py-3 hover:bg-blue-50 transition-colors group border-b border-gray-50 last:border-0"
                                                 >
-                                                    <div className="w-10 h-10 rounded-md bg-white border border-gray-200 p-1 flex items-center justify-center mr-4 group-hover:border-blue-200 transition-colors">
-                                                        <img src={product.image} alt={product.title} className="w-full h-full object-contain" />
+                                                    <div className="w-12 h-12 rounded-xl bg-white border border-gray-200 p-1 flex items-center justify-center mr-4 group-hover:border-blue-200 transition-colors shrink-0">
+                                                        <img src={product.image} alt={product.title} className="w-full h-full object-contain mix-blend-multiply" />
                                                     </div>
                                                     <div>
-                                                        <div className="text-sm font-medium text-gray-900 group-hover:text-blue-700">{product.title}</div>
+                                                        <div className="text-sm font-bold text-gray-800 group-hover:text-blue-700 line-clamp-1">{product.title}</div>
                                                         <div className="text-xs text-gray-500 capitalize">{product.category}</div>
                                                     </div>
                                                 </Link>
@@ -202,46 +203,45 @@ const Header = () => {
                             )}
                         </div>
 
-                        {/* Desktop Icons */}
-                        <div className="hidden md:flex items-center gap-6">
-                            <Link to="/wishlist" className="flex flex-col items-center group relative text-gray-600 hover:text-blue-600 transition">
-                                <div className="relative p-1">
-                                    <Heart size={24} className="group-hover:fill-blue-50 transition-transform group-hover:scale-110" />
+                        {/* Desktop Icons - Enhanced Hover */}
+                        <div className="hidden md:flex items-center gap-4">
+                            <Link to="/wishlist" className="flex flex-col items-center group relative p-2 rounded-xl hover:bg-gray-50 transition-all">
+                                <div className="relative">
+                                    <Heart size={24} className="text-gray-600 group-hover:text-blue-600 group-hover:fill-blue-50 transition-all duration-300" />
                                     {wishlistCount > 0 && (
-                                        <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                        <span className="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm border border-white">
                                             {wishlistCount}
                                         </span>
                                     )}
                                 </div>
-                                <span className="text-xs font-medium mt-1">Wishlist</span>
+                                <span className="text-[10px] font-bold uppercase tracking-wide mt-1 text-gray-500 group-hover:text-blue-600">Wishlist</span>
                             </Link>
 
-                            <Link to="/cart" className="flex flex-col items-center group relative text-gray-600 hover:text-blue-600 transition">
-                                <div className="relative p-1">
-                                    <ShoppingCart size={24} className="group-hover:fill-blue-50 transition-transform group-hover:scale-110" />
+                            <Link to="/cart" className="flex flex-col items-center group relative p-2 rounded-xl hover:bg-gray-50 transition-all">
+                                <div className="relative">
+                                    <ShoppingCart size={24} className="text-gray-600 group-hover:text-blue-600 group-hover:fill-blue-50 transition-all duration-300" />
                                     {cartCount > 0 && (
-                                        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
+                                        <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-bounce shadow-sm border border-white">
                                             {cartCount}
                                         </span>
                                     )}
                                 </div>
-                                <span className="text-xs font-medium mt-1">Cart</span>
+                                <span className="text-[10px] font-bold uppercase tracking-wide mt-1 text-gray-500 group-hover:text-blue-600">Cart</span>
                             </Link>
 
-                            {/* MAIN USER ICON LOGIC */}
                             {user ? (
-                                <Link to="/profile" className="flex flex-col items-center group text-gray-600 hover:text-blue-600 transition">
-                                    <div className="p-1 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors border border-blue-100">
+                                <Link to="/profile" className="flex flex-col items-center group p-2 rounded-xl hover:bg-blue-50 transition-all">
+                                    <div className="p-0.5 bg-blue-100 rounded-full group-hover:ring-2 ring-blue-200 transition-all">
                                         <User size={20} className="text-blue-600" />
                                     </div>
-                                    <span className="text-xs font-medium mt-1 text-blue-700">Account</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-wide mt-1 text-blue-700">Account</span>
                                 </Link>
                             ) : (
-                                <Link to="/auth/login" className="flex flex-col items-center group text-gray-600 hover:text-blue-600 transition">
-                                    <div className="p-1 bg-gray-100 rounded-full group-hover:bg-blue-100 transition-colors">
-                                        <User size={20} />
+                                <Link to="/auth/login" className="flex flex-col items-center group p-2 rounded-xl hover:bg-gray-50 transition-all">
+                                    <div className="p-0.5 bg-gray-100 rounded-full group-hover:bg-gray-200 transition-all">
+                                        <User size={20} className="text-gray-600" />
                                     </div>
-                                    <span className="text-xs font-medium mt-1">Login</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-wide mt-1 text-gray-500 group-hover:text-gray-800">Login</span>
                                 </Link>
                             )}
                         </div>
@@ -249,24 +249,23 @@ const Header = () => {
                 </div>
 
                 {/* 3. Category Navigation (Desktop) */}
-                <div className="hidden md:block border-t border-gray-100 bg-white">
+                <div className={`hidden md:block border-t border-blue-100 transition-colors ${isScrolled ? 'bg-blue-50/90' : 'bg-blue-50'}`}>
                     <div className="container mx-auto px-4">
                         <div className="flex items-center justify-between">
 
                             {/* Mega Menu Trigger */}
-                            <div className="relative group py-3">
-                                <Link to="/shop" className="flex items-center font-bold text-gray-800 hover:text-blue-600 gap-2 px-4 py-2 bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
+                            <div className="relative group py-1">
+                                <Link to="/shop" className="flex items-center font-bold text-gray-800 hover:text-blue-600 gap-2 px-4 py-1.5 bg-white hover:bg-white shadow-sm hover:shadow-md border border-gray-200 rounded-full transition-all duration-300">
                                     <Menu size={18} />
                                     <span>Browse Categories</span>
-                                    <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+                                    <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300 text-gray-400" />
                                 </Link>
 
                                 {/* MEGA MENU DROPDOWN */}
-                                <div className="absolute left-0 top-full pt-2 w-[800px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 transform origin-top-left">
-                                    <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden grid grid-cols-12">
-
+                                <div className="absolute left-0 top-full pt-4 w-[800px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50 transform origin-top-left group-hover:translate-y-0 translate-y-2">
+                                    <div className="bg-white rounded-2xl shadow-xl ring-1 ring-gray-100 overflow-hidden grid grid-cols-12">
                                         {/* Categories Column */}
-                                        <div className="col-span-4 bg-gray-50 p-6 border-r border-gray-100">
+                                        <div className="col-span-4 bg-gray-50/80 p-6 border-r border-gray-100">
                                             <h4 className="font-bold text-gray-900 mb-4 uppercase text-xs tracking-wider flex items-center gap-2">
                                                 <Layers size={14} /> Departments
                                             </h4>
@@ -281,24 +280,24 @@ const Header = () => {
                                                     <Link
                                                         key={item.name}
                                                         to={`/shop?category=${item.link}`}
-                                                        className="flex items-center gap-3 p-2 rounded-lg text-gray-600 hover:text-blue-700 hover:bg-white hover:shadow-sm transition-all"
+                                                        className="flex items-center gap-3 p-2.5 rounded-lg text-gray-600 hover:text-blue-700 hover:bg-white hover:shadow-sm transition-all duration-200"
                                                     >
-                                                        <item.icon size={18} className="text-gray-400" />
-                                                        <span className="font-medium">{item.name}</span>
+                                                        <item.icon size={18} className="text-gray-400 group-hover:text-blue-500" />
+                                                        <span className="font-medium text-sm">{item.name}</span>
                                                     </Link>
                                                 ))}
                                             </div>
                                         </div>
 
                                         {/* Brands Column */}
-                                        <div className="col-span-5 p-6 border-r border-gray-100">
+                                        <div className="col-span-5 p-6 border-r border-gray-100 bg-white">
                                             <h4 className="font-bold text-gray-900 mb-4 uppercase text-xs tracking-wider">Top Brands</h4>
                                             <div className="grid grid-cols-2 gap-3">
                                                 {brandLogos.map((brand) => (
                                                     <Link
                                                         key={brand.name}
                                                         to={`/shop?brand=${brand.name}`}
-                                                        className="flex items-center p-2 rounded-lg hover:bg-gray-50 transition-colors group/brand"
+                                                        className="flex items-center p-2 rounded-xl hover:bg-gray-50 transition-colors group/brand"
                                                     >
                                                         <div className="w-10 h-10 rounded-lg bg-white border border-gray-100 flex items-center justify-center p-1 mr-3 shadow-sm group-hover/brand:border-blue-200 transition-colors">
                                                             <img
@@ -314,12 +313,12 @@ const Header = () => {
                                         </div>
 
                                         {/* Featured Offer Column */}
-                                        <div className="col-span-3 p-6 bg-gradient-to-br from-blue-600 to-blue-800 text-white flex flex-col justify-end relative overflow-hidden">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10 blur-xl"></div>
+                                        <div className="col-span-3 p-6 bg-gradient-to-br from-blue-600 to-indigo-900 text-white flex flex-col justify-end relative overflow-hidden group/offer">
+                                            <div className="absolute top-0 right-0 w-40 h-40 bg-white opacity-10 rounded-full -mr-16 -mt-16 blur-2xl group-hover/offer:scale-110 transition-transform duration-500"></div>
                                             <div className="relative z-10">
                                                 <h4 className="font-bold text-2xl mb-2">Summer Sale</h4>
-                                                <p className="text-blue-100 text-sm mb-4">Up to 50% off on selected Audio devices.</p>
-                                                <Link to="/discount" className="inline-block bg-white text-blue-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition-colors">
+                                                <p className="text-blue-100 text-sm mb-4 leading-relaxed">Get up to 50% off on premium audio devices.</p>
+                                                <Link to="/discount" className="inline-block bg-white text-blue-900 px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 hover:shadow-lg transition-all transform hover:-translate-y-0.5">
                                                     Shop Now
                                                 </Link>
                                             </div>
@@ -329,16 +328,20 @@ const Header = () => {
                             </div>
 
                             {/* Direct Brand Links */}
-                            <div className="flex items-center space-x-8">
-                                <Link to="/shop?brand=Apple" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors uppercase tracking-wider">Apple</Link>
-                                <Link to="/shop?brand=Samsung" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors uppercase tracking-wider">Samsung</Link>
-                                <Link to="/shop?brand=Google" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors uppercase tracking-wider">Google</Link>
-                                <Link to="/shop?brand=Sony" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors uppercase tracking-wider">Sony</Link>
-                                <Link to="/shop?brand=Xiaomi" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors uppercase tracking-wider">Xiaomi</Link>
+                            <div className="flex items-center space-x-6">
+                                {['Apple', 'Samsung', 'Google', 'Sony', 'Xiaomi', 'JBL'].map(brand => (
+                                    <Link key={brand} to={`/shop?brand=${brand}`} className="text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
+                                        {brand}
+                                    </Link>
+                                ))}
                             </div>
 
-                            <Link to="/discount" className="flex items-center text-red-600 font-bold text-sm px-4 py-1.5 bg-red-50 rounded-full hover:bg-red-100 transition-colors animate-pulse">
-                                Deals of the Day %
+                            <Link to="/discount" className="flex items-center gap-2 text-red-600 font-extrabold text-sm px-4 py-1 bg-red-50 rounded-full hover:bg-red-100 transition-colors">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                                </span>
+                                Deals of the Day
                             </Link>
                         </div>
                     </div>
@@ -347,31 +350,52 @@ const Header = () => {
                 {/* Mobile Menu (Hidden) */}
                 {isMobileMenuOpen && (
                     <div className="fixed inset-0 z-[60] md:hidden">
-                        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}></div>
-                        <div className="absolute top-0 left-0 w-[80%] max-w-[300px] h-full bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
+                        <div className="absolute inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)}></div>
+                        <div className="absolute top-0 left-0 w-[85%] max-w-[300px] h-full bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
                             {/* Mobile Menu Content */}
                             <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                                <span className="font-bold text-xl text-blue-700">Menu</span>
-                                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-gray-200 rounded-full">
+                                <span className="font-extrabold text-xl text-gray-900">Menu</span>
+                                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
                                     <X size={20} />
                                 </button>
                             </div>
-                            <div className="p-4 space-y-4">
+                            <div className="p-4 space-y-4 overflow-y-auto">
                                 {user ? (
-                                    <Link to="/profile" className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg text-blue-700 font-bold">
-                                        <User size={20} /> My Account
+                                    <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl text-blue-700 font-bold border border-blue-100">
+                                        <div className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-sm">{user.name.charAt(0)}</div>
+                                        <div>
+                                            <div className="text-xs text-blue-500 uppercase font-semibold">Signed in as</div>
+                                            {user.name}
+                                        </div>
                                     </Link>
                                 ) : (
-                                    <Link to="/auth/login" className="flex items-center gap-3 p-3 bg-gray-100 rounded-lg text-gray-700 font-bold">
+                                    <Link to="/auth/login" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-4 bg-gray-900 rounded-xl text-white font-bold shadow-lg shadow-gray-200">
                                         <User size={20} /> Login / Register
                                     </Link>
                                 )}
-                                <Link to="/shop" className="block p-2 font-bold text-gray-700">Shop All</Link>
-                                <div className="space-y-2 pl-2">
-                                    <p className="text-xs text-gray-400 font-bold uppercase">Brands</p>
-                                    <Link to="/shop?brand=Apple" className="block text-gray-600">Apple</Link>
-                                    <Link to="/shop?brand=Samsung" className="block text-gray-600">Samsung</Link>
-                                    <Link to="/shop?brand=Google" className="block text-gray-600">Google</Link>
+
+                                <div className="pt-2">
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-3 px-2">Navigation</p>
+                                    <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 font-medium text-gray-700">
+                                        Shop All Products <ChevronDown size={16} className="-rotate-90 text-gray-400" />
+                                    </Link>
+                                    <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 font-medium text-gray-700">
+                                        My Cart <span className="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">{cartCount}</span>
+                                    </Link>
+                                    <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 font-medium text-gray-700">
+                                        My Wishlist <span className="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-0.5 rounded-full">{wishlistCount}</span>
+                                    </Link>
+                                </div>
+
+                                <div className="pt-2 border-t border-gray-100">
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-3 px-2">Popular Brands</p>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {['Apple', 'Samsung', 'Google', 'Sony'].map(brand => (
+                                            <Link key={brand} to={`/shop?brand=${brand}`} onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-sm text-gray-600 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
+                                                {brand}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
